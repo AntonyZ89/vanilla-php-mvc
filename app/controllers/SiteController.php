@@ -2,9 +2,9 @@
 
 namespace app\controllers;
 
-use app\manager\View;
+use app\manager\Controller;
 
-class SiteController
+class SiteController extends Controller
 {
     /**
      * Returns home view
@@ -13,6 +13,17 @@ class SiteController
      */
     public static function actionIndex()
     {
-        return View::render('site/index');
+
+        return self::render('index');
+    }
+
+    /**
+     * Render about view
+     *
+     * @return string
+     */
+    public static function actionAbout()
+    {
+        return self::render('about');
     }
 }
