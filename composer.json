@@ -1,0 +1,8 @@
+{
+    "name": "antonyz89/vanilla-php-mvc",
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/"
+        }
+    }
+}
