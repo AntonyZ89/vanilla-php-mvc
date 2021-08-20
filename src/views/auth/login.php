@@ -1,3 +1,9 @@
+<?php
+
+use app\widgets\Alert;
+
+?>
+
 <!-- Background image -->
 <div id="intro" class="bg-image shadow-2-strong">
     <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.8);">
@@ -6,18 +12,11 @@
                 <div class="col-xl-5 col-md-8">
                     <form class="bg-white rounded shadow-5-strong p-5" method="POST">
 
-                        <?php if (isset($_SESSION['flash'])) : ?>
-                            <?php foreach ($_SESSION['flash'] as $type => $value) : ?>
-                                <div class="alert alert-<?= $type ?>" role="alert">
-                                    <?= $value ?>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                        <?php Alert::run() ?>
 
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                            <input type="text" id="document" name="document" class="form-control" maxlength="14" required />
+                            <input type="text" id="document" name="document" class="form-control document" maxlength="14" required />
                             <label class="form-label" for="document">CPF ou CNPJ</label>
                         </div>
 

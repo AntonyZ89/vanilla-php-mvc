@@ -31,11 +31,11 @@ class Request
 
     public function __construct()
     {
-        $this->queryParams = $_GET ?? [];
+        $this->setQueryParams($_GET ?? []);
         $this->post = $_POST ?? [];
         $this->headers = getallheaders();
         $this->method = $_SERVER['REQUEST_METHOD'] ?? '';
-        $this->uri = $_SERVER['REQUEST_URI'] ?? '';
+        $this->setUri($_SERVER['REQUEST_URI'] ?? '');
     }
 
     public function getMethod(): string
@@ -43,6 +43,16 @@ class Request
         return $this->method;
     }
 
+    public function setUri(string $uri): void
+    {
+        $exUri = explode('?', $uri);
+
+        $uri = $exUri[0];
+        $params = $exUri[1] ?? [];
+
+        $this->uri = $uri;
+        $this->setQueryParams($params);
+    }
 
     public function getUri(): string
     {
@@ -53,6 +63,32 @@ class Request
         return $this->uri;
     }
 
+
+    /**
+     * @param string|array $params
+     * @return void
+     */
+    public function setQueryParams($params)
+    {
+        if (is_string($params)) {
+            $params = explode('&', $params);
+
+            foreach ($params as $param) {
+                $exParam = explode('=', $param);
+
+                $key = $exParam[0];
+                $value = $exParam[1] ?? null;
+
+                if (!empty($key)) {
+                    $this->queryParams[$key] = $value;
+                }
+
+            }
+        } else {
+            $this->queryParams = array_merge($this->queryParams, $params);
+        }
+
+    }
 
     public function getQueryParams(): array
     {

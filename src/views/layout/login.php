@@ -21,9 +21,11 @@ use app\manager\View;
     <!-- Google Fonts Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
     <!-- MDB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.9.0/mdb.min.css" rel="stylesheet" />
     <!-- Custom styles -->
     <link rel="stylesheet" href="/src/assets/css/login.css" />
+    <link rel="stylesheet" href="/src/assets/css/main.css" />
+    <link rel="stylesheet" href="/src/assets/css/alert.css" />
 </head>
 
 <body class="login">
@@ -35,11 +37,10 @@ use app\manager\View;
 
     <?= View::render('layout', '_footer') ?>
 
-    <!--Footer-->
     <!-- MDB -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.9.0/mdb.min.js"></script>
     <!-- Custom scripts -->
-    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="/src/assets/js/validation.js"></script>
 </body>
 
 </html>

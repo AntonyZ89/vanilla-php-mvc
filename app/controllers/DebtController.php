@@ -2,14 +2,16 @@
 
 namespace app\controllers;
 
+use app\manager\Application;
 use app\manager\Controller;
 use app\models\Debt;
 
 class DebtController extends Controller
 {
+
     public static function actionIndex()
     {
-        $models = Debt::listByUser(self::getUser()->getId());
+        $models = Debt::listByUser(Application::getUser()->getId());
 
         return self::render('index', [
             'debts' => $models
@@ -22,7 +24,7 @@ class DebtController extends Controller
         $post = $request->getPost();
 
         $model = new Debt();
-        $model->setUserId(self::getUser()->getId());
+        $model->setUserId(Application::getUser()->getId());
         $model->load($post);
 
         $new = $model->isNewRecord();

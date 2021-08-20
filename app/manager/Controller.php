@@ -11,11 +11,6 @@ abstract class Controller
     public const LAYOUT = 'main';
 
     /**
-     * @var User|null
-     */
-    protected static $user;
-
-    /**
      * Converts className to lowercase separated by dash
      *
      * @return string
@@ -37,7 +32,7 @@ abstract class Controller
     public static function render($view, $vars = []): string
     {
         $_vars = [
-            'user' => self::getUser()
+            'user' => Application::getUser()
         ];
 
         $vars = array_merge($_vars, $vars);
@@ -77,19 +72,5 @@ abstract class Controller
     public static function setFlash(string $key, $value)
     {
         $_SESSION['flash'][$key] = (array)$value;
-    }
-
-    /**
-     * Returns logged user
-     *
-     * @return User|null
-     */
-    public static function getUser()
-    {
-        if (isset($_SESSION['user']) && self::$user === null) {
-            self::$user = User::get(['id' => $_SESSION['user']['id']]);
-        }
-
-        return self::$user;
     }
 }

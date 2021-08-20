@@ -18,6 +18,12 @@ class User extends Model
      * @var integer
      */
     protected $id;
+
+    /**
+     * @var string
+     */
+    protected $name;
+
     /**
      * @var string
      */
@@ -42,6 +48,16 @@ class User extends Model
             $this->setErrors('CPF/CNPJ', 'Insira um CPF ou CNPJ válido.');
         }
 
+        $model = self::get(['document' => $this->document]);
+
+        if ($model && $model->id !== $this->id) {
+            $this->setErrors('CPF/CNPJ', 'CPF/CNPJ já cadastrado.');
+        }
+
+        if (empty($this->name)) {
+            $this->setErrors('Nome', '"Nome" é um campo obrigatório');
+        }
+
         if (empty($this->birthday)) {
             $this->setErrors('Data de nascimento', 'Insira uma data de Nascimento válida');
         }
@@ -60,7 +76,7 @@ class User extends Model
      * @param string $confirmPassword
      * @return void
      */
-    public function setPassword(string $password, string $confirmPassword): void
+    public function setPassword($password, $confirmPassword): void
     {
         if ($password !== $confirmPassword) {
             $this->setErrors('password', 'Senhas diferentes');
@@ -69,7 +85,7 @@ class User extends Model
         }
     }
 
-    public function validatePassword(string $password): bool
+    public function validatePassword($password): bool
     {
         return password_verify($password, $this->password_hash);
     }
@@ -82,9 +98,22 @@ class User extends Model
         return $this->id;
     }
 
-    public function setId(int $id): void
+    public function setId($id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name): void
+    {
+        $this->name = $name;
     }
 
     /**
@@ -95,7 +124,7 @@ class User extends Model
         return $this->document;
     }
 
-    public function setDocument(string $document): void
+    public function setDocument($document): void
     {
         $this->document = $document;
     }
@@ -108,7 +137,7 @@ class User extends Model
         return $this->birthday;
     }
 
-    public function setBirthday(string $birthday): void
+    public function setBirthday($birthday): void
     {
         $this->birthday = $birthday;
     }
@@ -121,8 +150,21 @@ class User extends Model
         return $this->address;
     }
 
-    public function setAddress(string $address): void
+    public function setAddress($address): void
     {
         $this->address = $address;
+    }
+
+    public function setPasswordHash($password_hash): void {
+        $this->password_hash = $password_hash;
+    }
+
+
+    /**
+     * @return string|null
+     */
+    public function getPasswordHash()
+    {
+        return $this->password_hash;
     }
 }

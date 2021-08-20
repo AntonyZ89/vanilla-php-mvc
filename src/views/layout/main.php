@@ -6,6 +6,7 @@
  */
 
 use app\manager\View;
+use app\widgets\Alert;
 
 ?>
 
@@ -22,10 +23,11 @@ use app\manager\View;
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <!-- MDB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.9.0/mdb.min.css" rel="stylesheet" />
     <!-- CSS -->
     <link rel="stylesheet" href="/src/assets/css/main.css">
     <link rel="stylesheet" href="/src/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/src/assets/css/alert.css" />
 </head>
 
 <body>
@@ -34,16 +36,9 @@ use app\manager\View;
     <!--Main layout-->
     <main style="margin-top: 68px" class="mb-2">
         <div class="container">
-            <?php if (isset($_SESSION['flash'])) : ?>
-                <?php foreach ($_SESSION['flash'] as $type => $value) : ?>
-                    <?php foreach ($value as $alert) : ?>
-                        <div class="alert alert-<?= $type ?>" role="alert">
-                            <?= $alert ?>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endforeach; ?>
-            <?php endif; ?>
+
+            <?php Alert::run() ?>
+
             <?= $content ?>
         </div>
     </main>
@@ -52,9 +47,10 @@ use app\manager\View;
     <?= View::render('layout', '_footer') ?>
 
     <!-- MDB -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.9.0/mdb.min.js"></script>
     <!-- script -->
     <script type="text/javascript" src="/src/assets/js/script.js"></script>
+    <script type="text/javascript" src="/src/assets/js/validation.js"></script>
 </body>
 
 </html>

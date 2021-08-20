@@ -26,6 +26,9 @@ use app\models\User;
                 <!-- Avatar -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                        <span class="me-2">
+                            <?= $user ? $user->getName() : 'Usuário convidado(a)' ?>
+                        </span>
                         <img src="/src/assets/img/avatar.png" class="rounded-circle" height="22" alt="" loading="lazy" />
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">

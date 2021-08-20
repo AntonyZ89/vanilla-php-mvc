@@ -38,10 +38,35 @@ class Debt extends Model
      */
     protected $due_date;
 
-    public function validate(): bool {
-        return true;
+    public function validate(): bool
+    {
+        if (!strlen($this->description)) {
+            $this->setErrors('Descrição', '"Descrição" é um campo obrigatório.');
+        }
+        
+        if (empty($this->value) || !is_numeric($this->value)) {
+            $this->setErrors('Valor', '"Valor" é um campo obrigatório.');
+        }
+        
+        if (empty($this->user_id)) {
+            $this->setErrors('Usuário', 'Informe um ID válido do usuário.');
+        }
+        
+        if (empty($this->due_date)) {
+            $this->setErrors('Data de vencimento', '"Data de vencimento" é um campo obrigatório.');
+        }
+
+        return empty($this->getErrors());
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int|null
+     */
     public function getId()
     {
         return $this->id;
@@ -49,7 +74,7 @@ class Debt extends Model
 
     public function setDescription($description): void
     {
-        $this->description = $description;
+        $this->description = trim($description);
     }
 
     /**

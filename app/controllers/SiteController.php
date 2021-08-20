@@ -2,10 +2,12 @@
 
 namespace app\controllers;
 
+use app\manager\Application;
 use app\manager\Controller;
 
 class SiteController extends Controller
 {
+
     /**
      * Returns home view
      *
@@ -23,7 +25,7 @@ class SiteController extends Controller
      */
     public static function actionProfile()
     {
-        $user = self::getUser();
+        $user = Application::getUser();
         $request = self::getRequest();
 
         if ($request->isPost()) {

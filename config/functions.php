@@ -1,6 +1,6 @@
 <?php
 
-function dd(...$args)
+function dd(...$args): void
 {
 
     echo '<pre>';
@@ -10,4 +10,17 @@ function dd(...$args)
     }
     echo '</pre>';
     die;
+}
+
+function camelize(string $string): string
+{
+    return (
+        str_replace(
+            ' ',
+            '',
+            ucwords(
+                preg_replace('/[^a-zA-Z0-9\x7f-\xff]++/', ' ', $string)
+            )
+        )
+    );
 }

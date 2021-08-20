@@ -2,6 +2,7 @@
 
 namespace app\manager;
 
+use app\models\User;
 use Exception;
 
 class Application
@@ -14,6 +15,11 @@ class Application
      * @var string $path
      */
     protected static $alias = [];
+
+    /**
+     * @var User|null
+     */
+    protected static $user;
 
     public static function setAlias(string $alias, string $path)
     {
@@ -34,5 +40,23 @@ class Application
         }
 
         return self::$alias[$alias];
+    }
+
+    /**
+     * Returns logged user
+     *
+     * @return User|null
+     */
+    public static function getUser()
+    {
+        if (isset($_SESSION['user']) && self::$user === null) {
+            self::$user = User::get(['id' => $_SESSION['user']['id']]);
+
+            if (!self::$user) {
+                unset($_SESSION['user']);
+            }
+        }
+
+        return self::$user;
     }
 }

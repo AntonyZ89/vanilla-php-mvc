@@ -2,6 +2,7 @@
 
 namespace app\http;
 
+use app\manager\Application;
 use app\manager\Controller;
 use Exception;
 use ReflectionFunction;
@@ -54,7 +55,7 @@ class Router
      * @param array $routes
      * @return void
      */
-    protected function setRoute(string $method, string $route, string $controller, array $query_params)
+    protected function setRoute(string $method, string $route, string $controller, array $vars)
     {
         $pattern = "/{(.+?)}/";
 
@@ -65,10 +66,14 @@ class Router
             $route_params = [];
         }
 
+        $rules = (array)($vars['rules'] ?? ['@', '?']);
+        unset($vars['rules']);
+
         $this->routes[$method][$route] = [
             'target' => $controller,
             'route-params' => $route_params,
-            'query-params' => $query_params
+            'query-params' => $vars,
+            'rules' => $rules
         ];
     }
 
@@ -83,12 +88,19 @@ class Router
         $method = $this->request->getMethod();
         $queryParams = $this->request->getQueryParams();
 
-        // TODO remove params from uri
         if (isset($this->routes[$method])) {
 
             $actions = $this->routes[$method];
 
             foreach ($actions as $name => $value) {
+
+                $rule = Application::getUser() ? '@' : '?';
+
+
+                if (!in_array($rule, $value['rules'])) {
+                    continue;
+                }
+
                 $pattern = "/^" . str_replace('/', '\\/', $name) . "$/";
 
                 if (preg_match($pattern, $uri, $matches)) {

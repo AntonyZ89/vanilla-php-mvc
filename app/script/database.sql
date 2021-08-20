@@ -1,5 +1,9 @@
+DROP TABLE IF EXISTS `debt`;
+DROP TABLE IF EXISTS `user`;
+
 CREATE TABLE `user` (
   `id` int NOT NULL primary key AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
   `document` VARCHAR(14) NOT NULL,
   `birthday` DATE NOT NULL,
   `address` VARCHAR(255) NOT NULL,
@@ -16,6 +20,5 @@ CREATE TABLE `debt` (
   `due_date` DATE NOT NULL,
   `created_at` INT NOT NULL,
   `updated_at` INT NOT NULL,
-
   FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) default charset utf8;

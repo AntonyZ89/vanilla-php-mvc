@@ -24,8 +24,14 @@ abstract class Model
 
     public function load(array $attributes)
     {
+        $safe_attributes = array_keys($this->getAttributes());
+
         foreach ($attributes as $attribute => $value) {
-            $this->$attribute = $value;
+            if (!in_array($attribute, $safe_attributes)) {
+                continue;
+            }
+
+            $this->{'set' . camelize($attribute)}($value);
         }
     }
 
@@ -175,12 +181,22 @@ abstract class Model
         return $this->id === null;
     }
 
+    public function setUpdatedAt($updated_at): void
+    {
+        $this->updated_at = $updated_at;
+    }
+
     /**
      * @return integer|null
      */
     public function getUpdatedAt()
     {
         return $this->updated_at;
+    }
+
+    public function setCreatedAt($created_at): void
+    {
+        $this->created_at = $created_at;
     }
 
     /**
@@ -191,11 +207,13 @@ abstract class Model
         return $this->created_at;
     }
 
-    public function getErrors(): array {
+    public function getErrors(): array
+    {
         return $this->errors;
     }
 
-    public function setErrors(string $key, string $value): void {
+    public function setErrors(string $key, string $value): void
+    {
         $this->errors[$key] = $value;
     }
 }

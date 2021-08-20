@@ -28,11 +28,13 @@ class AuthController extends Controller
             }
 
             $model = User::get(['document' => $document]);
-
+            
             if ($model && $model->validatePassword($password)) {
                 self::handleLogin($model);
                 self::redirect('/');
             }
+
+            self::setFlash('danger', 'CPF/CNPJ ou senha incorretos');
         }
 
         return self::render('login');
@@ -41,22 +43,25 @@ class AuthController extends Controller
     public static function actionSignup()
     {
         $request = self::getRequest();
+        $model = new User();
+
         if ($request->isPost()) {
-            $model = new User();
             $model->load($request->getPost());
 
             $password =  $request->getPost('password');
+            $confirm_password =  $request->getPost('confirm-password');
 
-            $model->setPassword($password);
+            $model->setPassword($password, $confirm_password);
 
-            $model->save();
-
-            self::handleLogin($model);
-
-            self::redirect('/');
+            if ($model->save()) {
+                self::handleLogin($model);
+                self::redirect('/');
+            }
         }
 
-        return self::render('signup');
+        return self::render('signup', [
+            'model' => $model
+        ]);
     }
 
 
