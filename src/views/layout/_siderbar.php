@@ -25,7 +25,7 @@ use app\models\User;
                     <i class="fas fa-user fa-fw me-3"></i>
                     <span>Perfil</span>
                 </a>
-                <a href="/logout" class="list-group-item list-group-item-action py-2 ripple">
+                <a href="/logout" class="list-group-item list-group-item-action py-2 ripple" data-method="post">
                     <i class="fas fa-sign-out-alt fa-fw me-3"></i>
                     <span>Sair</span>
                 </a>

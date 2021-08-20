@@ -1,13 +1,16 @@
 #intro {
     background-image: url(https://mdbootstrap.com/img/new/fluid/city/008.jpg);
-    height: 100vh;
 }
 
-/* Height for devices larger than 576px */
-@media (min-width: 992px) {
-    #intro {
-        margin-top: -58.59px;
-    }
+#intro > .background {
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+
+    display: flex;
+    align-items: center;
+    
+    padding-top: 58.59px;
+    padding-bottom: 58.59px;
 }
 
 .navbar .nav-link {

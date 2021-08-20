@@ -24,7 +24,6 @@ use app\manager\View;
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.9.0/mdb.min.css" rel="stylesheet" />
     <!-- Custom styles -->
     <link rel="stylesheet" href="/src/assets/css/login.css" />
-    <link rel="stylesheet" href="/src/assets/css/main.css" />
     <link rel="stylesheet" href="/src/assets/css/alert.css" />
 </head>
 
