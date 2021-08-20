@@ -1,21 +1,31 @@
 <?php
 
 use app\manager\View;
+use app\models\Debt;
+
+/**
+ * @var Debt[] $debts
+ */
 
 ?>
 
 <div class="debt-index">
-    <h1>Minhas dívidas</h1>
-    <hr>
     <section class="mb-2">
         <div class="card border">
             <div class="card-body">
-                <h5 class="card-title">Dívidas</h5>
+                <h5 class="card-title">Suas dívidas</h5>
                 <div class="card-text">
-                    <?php for ($i = 0; $i < 5; $i++) : ?>
+                    <?php foreach ($debts as $i => $debt) : ?>
                         <?= $i !== 0 ? '<hr>' : null ?>
-                        <?= View::render('debt', '_form') ?>
-                    <?php endfor; ?>
+                        <?= View::render('debt', '_form', [
+                            'model' => $debt
+                        ]) ?>
+                    <?php endforeach; ?>
+
+
+                    <?php if(empty($debts)): ?>
+                        <h3 class="text-center">Nenhuma dívida encontrada</h3>
+                    <?php endif; ?>
 
                 </div>
             </div>
@@ -27,8 +37,11 @@ use app\manager\View;
                 <h5 class="card-title">Cadastrar nova dívida</h5>
                 <div class="card-text">
                     <section>
-                        <?= View::render('debt', '_form') ?>
+                        <?= View::render('debt', '_form', [
+                            'model' => null
+                        ]) ?>
                     </section>
+
                 </div>
             </div>
         </div>

@@ -1,11 +1,16 @@
 <?php
 
 use app\manager\View;
+use app\models\User;
+
+/**
+ * @var User|null $user logged user
+ */
 
 ?>
 <!--Main Navigation-->
 <header>
-    <?= View::render('layout', '_siderbar') ?>
+    <?= View::render('layout', '_siderbar', ['user' => $user]) ?>
 
     <!-- Navbar -->
     <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
@@ -24,8 +29,12 @@ use app\manager\View;
                         <img src="/src/assets/img/avatar.png" class="rounded-circle" height="22" alt="" loading="lazy" />
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="/profile">Meu perfil</a></li>
-                        <li><a class="dropdown-item" href="/logout">Sair</a></li>
+                        <?php if ($user) : ?>
+                            <li><a class="dropdown-item" href="/profile">Meu perfil</a></li>
+                            <li><a class="dropdown-item" href="/logout" data-method="POST">Sair</a></li>
+                        <?php else : ?>
+                            <li><a class="dropdown-item" href="/login">Entrar</a></li>
+                        <?php endif; ?>
                     </ul>
                 </li>
             </ul>

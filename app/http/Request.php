@@ -46,7 +46,7 @@ class Request
 
     public function getUri(): string
     {
-        if(preg_match("/^\/.+/", $this->uri)) {
+        if (preg_match("/^\/.+/", $this->uri)) {
             $this->uri = substr($this->uri, 1);
         }
 
@@ -59,14 +59,33 @@ class Request
         return $this->queryParams;
     }
 
-    public function getPost(): array
+    /**
+     * Get POST variables
+     *
+     * @return array|string
+     */
+    public function getPost($field = null, $default = null)
     {
-        return $this->post;
+        if ($field === null) {
+            return $this->post;
+        } else {
+            return $this->post[$field] ?? $default;
+        }
     }
 
 
     public function getHeaders(): array
     {
         return $this->headers;
+    }
+
+    public function isPost(): bool
+    {
+        return $this->getMethod() === 'POST';
+    }
+
+    public function isGet(): bool
+    {
+        return $this->getMethod() === 'GET';
     }
 }

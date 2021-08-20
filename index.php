@@ -12,14 +12,23 @@ $router = new Router();
 // SiteController
 $router->get('/', 'site/index');
 $router->get('index', 'site/index');
+$router->post('profile', 'site/profile');
+$router->get('profile', 'site/profile');
 
-$router->get('login', 'site/login'); // TODO
-$router->post('login', 'site/login'); // TODO
 
-$router->post('logout', 'site/logout'); // TODO
+// AuthController
+$router->get('signup', 'auth/signup');
+$router->post('signup', 'auth/signup');
 
-$router->get('profile', 'site/me'); // TODO
+$router->get('login', 'auth/login');
+$router->post('login', 'auth/login');
 
+$router->post('logout', 'auth/logout');
+
+
+// DebtController
 $router->get('debt', 'debt/index');
+$router->post('debt/save', 'debt/save');
+$router->post('debt/{id}/delete', 'debt/delete');
 
 $router->run();

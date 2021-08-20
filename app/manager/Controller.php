@@ -1,10 +1,19 @@
-<?php 
+<?php
 
 namespace app\manager;
 
 use app\http\Request;
+use app\models\User;
 
-abstract class Controller {
+abstract class Controller
+{
+
+    public const LAYOUT = 'main';
+
+    /**
+     * @var User|null
+     */
+    protected static $user;
 
     /**
      * Converts className to lowercase separated by dash
@@ -25,13 +34,19 @@ abstract class Controller {
      * @param string $view
      * @return string
      */
-    public static function render($view, $vars = []): string {
-        $content = View::render('layout', 'main', [
+    public static function render($view, $vars = []): string
+    {
+        $_vars = [
+            'user' => self::getUser()
+        ];
+
+        $vars = array_merge($_vars, $vars);
+
+        $content = View::render('layout', static::LAYOUT, array_merge($vars, [
             'content' => View::render(self::getId(), $view, $vars)
-        ]);
+        ]));
 
         unset($_SESSION['flash']);
-
 
         return $content;
     }
@@ -41,16 +56,40 @@ abstract class Controller {
      *
      * @return Request
      */
-    public static function getRequest(): Request {
+    public static function getRequest(): Request
+    {
         return new Request();
-    }   
+    }
 
-    public static function redirect($url) {
+    public static function redirect($url)
+    {
         header('Location: ' . $url);
         die;
     }
 
-    public static function setFlash(string $key, string $value) {
-        $_SESSION['flash'][$key] = $value;
+    /**
+     * Adds a message to be displayed on an Alert
+     *
+     * @param string $key
+     * @param array|string $value
+     * @return void
+     */
+    public static function setFlash(string $key, $value)
+    {
+        $_SESSION['flash'][$key] = (array)$value;
+    }
+
+    /**
+     * Returns logged user
+     *
+     * @return User|null
+     */
+    public static function getUser()
+    {
+        if (isset($_SESSION['user']) && self::$user === null) {
+            self::$user = User::get(['id' => $_SESSION['user']['id']]);
+        }
+
+        return self::$user;
     }
 }
