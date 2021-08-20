@@ -2,10 +2,18 @@
     "name": "antonyz89/vanilla-php-mvc",
     "autoload": {
         "psr-4": {
-            "app\\": "app/"
+            "app\\": "app/",
+            "test\\": "test/"
         },
         "files": [
-            "config/functions.php"
+            "config/functions.php",
+            "config/validation.php"
         ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     }
 }
