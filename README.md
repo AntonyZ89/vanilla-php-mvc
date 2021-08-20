@@ -134,7 +134,7 @@ This repository has three Controllers:
 4. Copy the content into `script/httpd-vhost.conf` and place it in your `httpd-vhost.conf` or your VirtualHost configuration file.
 5. Restart Apache.
 6. Put your database information in `config/main.php`.
-7. Run in your `php composer update` terminal.
+7. Run `php composer update` on terminal.
 8. Go to `http://mvc.localhost`.
 9. Done!
 ```

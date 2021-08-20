@@ -128,13 +128,13 @@ Este repositório possui três Controllers:
 ## Installation
 
 ```
-1. Clone este repositório e coloque-o na sua pasta "htdocs" ( ou aonde você renderiza seus projetos )
-2. Crie um banco de dados ( preferencialmente no MySQL )
-3. Execute o script localizado em `script/database.sql`
+1. Clone este repositório e coloque-o na sua pasta "htdocs" ( ou aonde você renderiza seus projetos ).
+2. Crie um banco de dados ( preferencialmente no MySQL ).
+3. Execute o script localizado em `script/database.sql`.
 4. Copie o conteúdo dentro de `script/httpd-vhost.conf` e coloque-o no seu `httpd-vhost.conf` ou em seu arquivo de configuração de VirtualHost.
 5. Reinicie o Apache.
-6. Coloque as informações do seu banco de dados em `config/main.php`
-7. Execute em seu terminal `php composer update`
+6. Coloque as informações do seu banco de dados em `config/main.php`.
+7. Execute em seu terminal `php composer update`.
 8. Acesse `http://mvc.localhost`.
 9. Feito!
 ```
