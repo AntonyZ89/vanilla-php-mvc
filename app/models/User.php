@@ -2,9 +2,7 @@
 
 namespace app\models;
 
-use app\manager\Controller;
 use app\manager\Model;
-use Exception;
 
 class User extends Model
 {
@@ -58,12 +56,16 @@ class User extends Model
             $this->setErrors('Nome', '"Nome" é um campo obrigatório');
         }
 
-        if (empty($this->birthday)) {
+        if (!is_birthday_valid($this->birthday)) {
             $this->setErrors('Data de nascimento', 'Insira uma data de Nascimento válida');
         }
 
         if (empty($this->address)) {
             $this->setErrors('Endereço', 'Insira um endereço válido');
+        }
+        
+        if (empty($this->password_hash)) {
+            $this->setErrors('Senha', '"Senha" é um campo obrigatório.');
         }
 
         return empty($this->getErrors());
@@ -79,7 +81,7 @@ class User extends Model
     public function setPassword($password, $confirmPassword): void
     {
         if ($password !== $confirmPassword) {
-            $this->setErrors('password', 'Senhas diferentes');
+            $this->setErrors('Senha', 'Senhas diferentes');
         } else {
             $this->password_hash = password_hash($password, PASSWORD_DEFAULT);
         }

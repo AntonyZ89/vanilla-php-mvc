@@ -29,12 +29,12 @@ class DebtController extends Controller
 
         $new = $model->isNewRecord();
 
-        $model->save();
-
-        if ($new) {
-            self::setFlash('success', 'Dívida cadastrada com sucesso!');
-        } else {
-            self::setFlash('success', 'Dívida atualizada com sucesso!');
+        if ($model->save()) {
+            if ($new) {
+                self::setFlash('success', 'Dívida cadastrada com sucesso!');
+            } else {
+                self::setFlash('success', 'Dívida atualizada com sucesso!');
+            }
         }
 
         self::redirect('/debt');

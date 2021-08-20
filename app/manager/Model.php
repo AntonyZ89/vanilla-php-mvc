@@ -20,7 +20,9 @@ abstract class Model
 
     public abstract static function tableName(): string;
 
-    public abstract function validate(): bool;
+    public function validate(): bool {
+        return true;
+    }
 
     public function load(array $attributes)
     {

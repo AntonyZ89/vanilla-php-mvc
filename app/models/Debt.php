@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use app\db\Database;
 use app\manager\Model;
 
 class Debt extends Model
@@ -24,7 +23,7 @@ class Debt extends Model
     protected $description;
 
     /**
-     * @var float IMPORTANT verificar se vem em float mesmo!
+     * @var string
      */
     protected $value;
 
@@ -43,17 +42,17 @@ class Debt extends Model
         if (!strlen($this->description)) {
             $this->setErrors('Descrição', '"Descrição" é um campo obrigatório.');
         }
-        
+
         if (empty($this->value) || !is_numeric($this->value)) {
             $this->setErrors('Valor', '"Valor" é um campo obrigatório.');
         }
-        
+
         if (empty($this->user_id)) {
             $this->setErrors('Usuário', 'Informe um ID válido do usuário.');
         }
-        
-        if (empty($this->due_date)) {
-            $this->setErrors('Data de vencimento', '"Data de vencimento" é um campo obrigatório.');
+
+        if (!is_date_valid($this->due_date)) {
+            $this->setErrors('Data de vencimento', 'Insira uma "Data de vencimento" válida.');
         }
 
         return empty($this->getErrors());

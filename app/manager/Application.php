@@ -21,6 +21,12 @@ class Application
      */
     protected static $user;
 
+
+    /**
+     * @var array|null
+     */
+    protected static $config;
+
     public static function setAlias(string $alias, string $path)
     {
         self::$alias[$alias] = $path;
@@ -58,5 +64,19 @@ class Application
         }
 
         return self::$user;
+    }
+
+
+    /**
+     * Returns system config
+     *
+     * @return array
+     */
+    public static function getConfig(): array {
+        if (self::$config === null) {
+            self::$config = require self::getAlias('@config') . '/main.php';
+        }
+
+        return self::$config;
     }
 }

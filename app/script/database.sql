@@ -20,5 +20,5 @@ CREATE TABLE `debt` (
   `due_date` DATE NOT NULL,
   `created_at` INT NOT NULL,
   `updated_at` INT NOT NULL,
-  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) default charset utf8;

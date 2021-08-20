@@ -2,6 +2,7 @@
 
 namespace app\db;
 
+use app\manager\Application;
 use Exception;
 use PDO;
 
@@ -15,6 +16,14 @@ class Database
      * @var string
      */
     private $database;
+    /**
+     * @var string
+     */
+    private $user;
+    /**
+     * @var string
+     */
+    private $password;
 
     /**
      * @var PDO
@@ -26,10 +35,12 @@ class Database
      */
     private static $instance;
 
-    private function __construct(string $host, string $database)
+    private function __construct(string $host, string $database, string $user, string $password)
     {
         $this->host = $host;
         $this->database = $database;
+        $this->user = $user;
+        $this->password = $password;
 
         $this->getDb();
     }
@@ -47,21 +58,14 @@ class Database
     public function getDb(): PDO
     {
         if (!self::$conn) {
-            // TODO load database from config/main
-
             try {
                 $dsn = "mysql:host=$this->host;dbname=$this->database";
-                $user = 'root';
-                $password = '';
 
-                self::$conn = new PDO($dsn, $user, $password);
+                self::$conn = new PDO($dsn, $this->user, $this->password);
 
                 self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (\Throwable $th) {
-                // TODO throw message error on error screen :)
-
                 echo $th->getMessage();
-
                 exit();
             }
         }
@@ -72,7 +76,13 @@ class Database
     public static function getInstance(): self
     {
         if (!self::$instance) {
-            self::$instance = new self('localhost', 'debt');
+            $config = Application::getConfig();
+            $host = $config['db']['host'];
+            $database = $config['db']['database'];
+            $user = $config['db']['user'];
+            $password = $config['db']['password'];
+
+            self::$instance = new self($host, $database, $user, $password);
         }
 
         return self::$instance;

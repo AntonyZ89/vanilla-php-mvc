@@ -12,11 +12,13 @@ class DebtTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
+        require(__DIR__ . '/../config/params.php');
+
         $model = new User();
 
         $model->load([
             'name' => 'Test User',
-            'document' => '22222222222',
+            'document' => '22223223222',
             'birthday' => '2021-08-20',
             'address' => 'Rua 13 de Maio, SP',
         ]);
@@ -29,7 +31,7 @@ class DebtTest extends TestCase
     {
         $model = new Debt();
 
-        $user = User::get(['document' => '22222222222']);
+        $user = User::get(['document' => '22223223222']);
         $this->assertNotNull($user);
 
         $model->load([
@@ -51,7 +53,7 @@ class DebtTest extends TestCase
     {
         $model = new Debt();
 
-        $user = User::get(['document' => '22222222222']);
+        $user = User::get(['document' => '22223223222']);
         $this->assertNotNull($user);
 
         $model->load([
@@ -70,7 +72,7 @@ class DebtTest extends TestCase
 
     public function test_edit_success()
     {
-        $user = User::get(['document' => '22222222222']);
+        $user = User::get(['document' => '22223223222']);
 
         $this->assertNotNull($user);
 
@@ -87,7 +89,7 @@ class DebtTest extends TestCase
 
     public function test_get_success()
     {
-        $user = User::get(['document' => '22222222222']);
+        $user = User::get(['document' => '22223223222']);
 
         $this->assertNotNull($user);
 
@@ -104,7 +106,7 @@ class DebtTest extends TestCase
 
     public function test_edit_failed()
     {
-        $user = User::get(['document' => '22222222222']);
+        $user = User::get(['document' => '22223223222']);
 
         $this->assertNotNull($user);
 
@@ -124,7 +126,7 @@ class DebtTest extends TestCase
 
     public function test_delete_success()
     {
-        $user = User::get(['document' => '22222222222']);
+        $user = User::get(['document' => '22223223222']);
 
         $this->assertNotNull($user);
 
@@ -137,7 +139,7 @@ class DebtTest extends TestCase
 
     public function test_delete_failed()
     {
-        $user = User::get(['document' => '22222222222']);
+        $user = User::get(['document' => '22223223222']);
 
         $this->assertNotNull($user);
 
@@ -151,7 +153,7 @@ class DebtTest extends TestCase
 
     public static function tearDownAfterClass(): void
     {
-        $model = User::get(['document' => '22222222222']);
+        $model = User::get(['document' => '22223223222']);
 
         if ($model) {
             $model->delete();

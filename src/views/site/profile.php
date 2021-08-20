@@ -45,7 +45,7 @@ use app\models\User;
                 <row>
                     <div class="col-md-4">
                         <div class="form-outline mb-2">
-                            <input type="pasword" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control">
                             <label class="form-label" for="password">Nova senha</label>
                         </div>
                     </div>
@@ -53,7 +53,7 @@ use app\models\User;
                 <row>
                     <div class="col-md-4">
                         <div class="form-outline">
-                            <input type="pasword" name="confirm-password" id="confirm-password" class="form-control">
+                            <input type="password" name="confirm-password" id="confirm-password" class="form-control">
                             <label class="form-label" for="confirm-password">Confirmar nova senha</label>
                         </div>
                     </div>
